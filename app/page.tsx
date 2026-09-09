@@ -9,6 +9,7 @@ import {
   Check,
   Code2,
   Menu,
+   MessageCircle,
   PenTool,
   Smartphone,
   Sparkles,
@@ -78,50 +79,107 @@ const process = [
     text: "Your website goes live and starts working for your business.",
   },
 ];
-
 const pricing = [
   {
-    name: "STARTER",
-    price: "₹3,999",
+    number: "01",
+    name: "LANDING PAGE",
+    price: "₹2,999+",
     description:
-      "A clean professional website to get your business online.",
+      "A focused one-page website designed to promote a product, service, campaign or offer.",
+    bestFor: "Ads • Campaigns • Lead Generation",
     features: [
-      "1–3 Pages",
-      "Responsive Design",
-      "WhatsApp Integration",
-      "Contact Form",
+      "1 High-converting page",
+      "Responsive design",
+      "Call-to-action sections",
+      "WhatsApp integration",
+      "Contact / lead form",
       "Basic SEO",
     ],
   },
   {
-    name: "PROFESSIONAL",
-    price: "₹6,999",
+    number: "02",
+    name: "BUSINESS WEBSITE",
+    price: "₹4,999+",
     description:
-      "A stronger digital presence for growing businesses.",
+      "A professional multi-page website that builds trust and gives your business a strong online presence.",
+    bestFor: "Local Businesses • Services • Agencies",
     featured: true,
     features: [
-      "Up to 6 Pages",
+      "Up to 5 pages",
       "Premium UI / UX",
-      "Animations",
-      "WhatsApp Integration",
-      "Contact Form",
-      "SEO Setup",
+      "Responsive design",
+      "WhatsApp integration",
+      "Contact form",
       "Google Maps",
+      "Basic SEO setup",
     ],
   },
   {
-    name: "PREMIUM",
-    price: "₹9,999",
+    number: "03",
+    name: "PORTFOLIO WEBSITE",
+    price: "₹4,999+",
     description:
-      "A complete premium website for brands that want more.",
+      "A modern personal website designed to showcase your work, skills, projects and professional identity.",
+    bestFor: "Developers • Designers • Creators",
     features: [
-      "Up to 10 Pages",
-      "Advanced UI / UX",
-      "Advanced Animations",
-      "SEO Optimization",
-      "Analytics Setup",
-      "Custom Sections",
-      "Priority Support",
+      "Up to 5 pages",
+      "Project showcase",
+      "Premium animations",
+      "Responsive design",
+      "Contact section",
+      "Social media integration",
+      "SEO setup",
+    ],
+  },
+  {
+    number: "04",
+    name: "E-COMMERCE",
+    price: "₹12,999+",
+    description:
+      "A complete online store designed to showcase products and help your business sell online.",
+    bestFor: "Retailers • Brands • Online Stores",
+    features: [
+      "Product catalogue",
+      "Shopping cart",
+      "Product categories",
+      "Checkout integration",
+      "Payment gateway",
+      "Order management",
+      "Responsive design",
+    ],
+  },
+  {
+    number: "05",
+    name: "BOOKING WEBSITE",
+    price: "₹9,999+",
+    description:
+      "A professional website with booking functionality to help customers schedule appointments or services.",
+    bestFor: "Gyms • Salons • Consultants • Services",
+    features: [
+      "Service pages",
+      "Booking system",
+      "Contact / enquiry forms",
+      "WhatsApp integration",
+      "Responsive design",
+      "Google Maps",
+      "SEO setup",
+    ],
+  },
+  {
+    number: "06",
+    name: "CUSTOM WEBSITE",
+    price: "₹14,999+",
+    description:
+      "A fully custom website built around your exact business requirements and functionality.",
+    bestFor: "Startups • Brands • Advanced Projects",
+    features: [
+      "Custom UI / UX",
+      "Advanced animations",
+      "Custom functionality",
+      "Database integration",
+      "Admin dashboard",
+      "Third-party integrations",
+      "Performance optimization",
     ],
   },
 ];
@@ -1164,245 +1222,218 @@ export default function Home() {
       {/* =====================================================
           PRICING
       ===================================================== */}
+<section
+  id="pricing"
+  className="uchit-section uchit-pricing"
+>
+  <div className="uchit-section-top">
+    <div>
+      <span>05 / WEBSITE SOLUTIONS</span>
 
-      <section
-        id="pricing"
-        className="uchit-section uchit-pricing"
+      <h2>
+        FIND YOUR
+        <br />
+        <em>WEBSITE.</em>
+      </h2>
+    </div>
+
+    <p>
+      Different businesses need different
+      websites. Choose the solution that
+      fits your goals.
+    </p>
+  </div>
+
+  <div className="uchit-pricing-grid">
+    {pricing.map((plan, index) => (
+      <motion.div
+        key={plan.name}
+        className={`uchit-price ${
+          plan.featured
+            ? "uchit-price-featured"
+            : ""
+        }`}
+        initial={{ opacity: 0, y: 35 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.15 }}
+        transition={{
+          delay: index * 0.06,
+          duration: 0.6,
+        }}
       >
-
-        <div className="uchit-section-top">
-
-          <div>
-
-            <span>
-              05 / PRICING
-            </span>
-
-            <h2>
-              CLEAR
-              <br />
-              <em>PRICING.</em>
-            </h2>
-
+        {plan.featured && (
+          <div className="uchit-popular">
+            MOST POPULAR
           </div>
+        )}
 
-          <p>
-            Start with a package or get in touch
-            for a custom project.
-          </p>
-
+        <div className="uchit-price-number">
+          {plan.number}
         </div>
 
+        <span className="uchit-price-name">
+          {plan.name}
+        </span>
 
-        <div className="uchit-pricing-grid">
+        <h3>{plan.price}</h3>
 
-          {pricing.map(
-            (plan, index) => (
+        <p className="uchit-price-description">
+          {plan.description}
+        </p>
 
-              <motion.div
-                key={plan.name}
-                className={`uchit-price ${
-                  plan.featured
-                    ? "uchit-price-featured"
-                    : ""
-                }`}
-                initial={{
-                  opacity: 0,
-                  y: 35,
-                }}
-                whileInView={{
-                  opacity: 1,
-                  y: 0,
-                }}
-                viewport={{
-                  once: true,
-                }}
-                transition={{
-                  delay: index * 0.08,
-                }}
-              >
-
-                {plan.featured && (
-                  <div className="uchit-popular">
-                    MOST POPULAR
-                  </div>
-                )}
-
-                <span>
-                  {plan.name}
-                </span>
-
-                <h3>
-                  {plan.price}
-                </h3>
-
-                <p>
-                  {plan.description}
-                </p>
-
-                <div className="uchit-price-line" />
-
-                <ul>
-
-                  {plan.features.map(
-                    (feature) => (
-
-                      <li key={feature}>
-
-                        <Check size={14} />
-
-                        {feature}
-
-                      </li>
-
-                    )
-                  )}
-
-                </ul>
-
-
-                <a
-                  href="https://wa.me/918882184445"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  GET STARTED
-
-                  <ArrowUpRight
-                    size={16}
-                  />
-                </a>
-
-              </motion.div>
-
-            )
-          )}
-
+        <div className="uchit-price-best">
+          <span>BEST FOR</span>
+          <strong>{plan.bestFor}</strong>
         </div>
 
-      </section>
+        <div className="uchit-price-line" />
+
+        <ul>
+          {plan.features.map((feature) => (
+            <li key={feature}>
+              <Check size={14} />
+              {feature}
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href={`https://wa.me/918882184445?text=${encodeURIComponent(
+            `Hi Uchit, I'm interested in a ${plan.name} website. I'd like to discuss my requirements.`
+          )}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          GET STARTED
+          <ArrowUpRight size={16} />
+        </a>
+      </motion.div>
+    ))}
+  </div>
+
+  <div className="uchit-custom-pricing">
+    <div>
+      <span>NOT SURE WHAT YOU NEED?</span>
+
+      <h3>
+        LET&apos;S FIND THE RIGHT
+        <br />
+        <em>WEBSITE FOR YOU.</em>
+      </h3>
+    </div>
+
+    <a
+      href="https://wa.me/918882184445?text=Hi%20Uchit%2C%20I%27d%20like%20help%20choosing%20the%20right%20website%20for%20my%20business."
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      GET A FREE QUOTE
+      <ArrowUpRight size={18} />
+    </a>
+  </div>
+
+  <div className="uchit-pricing-note">
+    <span>*</span>
+    Final pricing depends on pages, functionality,
+    integrations and custom requirements.
+  </div>
+</section>
 
 
       {/* =====================================================
           CONTACT
       ===================================================== */}
+<section id="contact" className="uchit-contact">
+  <div className="uchit-contact-inner">
 
-      <section
-        id="contact"
-        className="uchit-contact"
+    <div className="uchit-contact-label">
+      06 / START A PROJECT
+    </div>
+
+    <h2>
+      HAVE AN IDEA?
+      <span>LET&apos;S BUILD IT.</span>
+    </h2>
+
+    <p>
+      Tell me about your business and what you want your website to achieve.
+    </p>
+
+    <div className="uchit-contact-main">
+
+      <a
+        href="mailto:uchitmishra01@gmail.com"
+        className="uchit-contact-email"
       >
+        uchitmishra01@gmail.com
+        <ArrowUpRight size={22} strokeWidth={2} />
+      </a>
 
-        <div className="uchit-contact-inner">
+      <div className="uchit-contact-buttons">
 
-          <span>
-            06 / START A PROJECT
-          </span>
+        <a
+          href="mailto:uchitmishra01@gmail.com"
+          className="uchit-contact-primary"
+        >
+          <span>START A PROJECT</span>
+          <ArrowUpRight size={16} />
+        </a>
 
-          <h2>
-            HAVE AN IDEA?
-            <br />
-            <em>LET&apos;S BUILD IT.</em>
-          </h2>
+        <a
+          href="https://wa.me/918882184445"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <MessageCircle size={17} />
+          <span>WHATSAPP</span>
+          <ArrowUpRight size={15} />
+        </a>
+<a
+  href="https://www.instagram.com/uchit.web/"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <span className="uchit-instagram-icon">◎</span>
+  <span>INSTAGRAM</span>
+  <ArrowUpRight size={15} />
+</a>
 
-          <p>
-            Tell me about your business and what
-            you want your website to achieve.
-          </p>
+      </div>
+    </div>
 
+    <div className="uchit-contact-decoration">
+      UCHIT.WEB
+    </div>
 
-          <div className="uchit-contact-buttons">
-
-            <a
-              href="https://wa.me/918882184445"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="uchit-contact-main"
-            >
-              START A PROJECT
-              <ArrowUpRight
-                size={19}
-              />
-            </a>
-
-            <a
-              href="mailto:uchitmishra01@gmail.com"
-              className="uchit-contact-email"
-            >
-              uchitmishra01@gmail.com
-              <ArrowUpRight
-                size={16}
-              />
-            </a>
-
-          </div>
-
-        </div>
-
-      </section>
-
+  </div>
+</section>
 
       {/* =====================================================
           FOOTER
       ===================================================== */}
+<footer className="uchit-footer">
 
-      <footer className="uchit-footer">
+  <div>
+    <strong>UCHIT.WEB</strong>
 
-        <div>
+    <span>
+      WEBSITES THAT GROW BUSINESSES.
+    </span>
+  </div>
 
-          <strong>
-            UCHIT<span>.WEB</span>
-          </strong>
+  <div className="uchit-footer-links">
+    <a href="#work">WORK</a>
+    <a href="#services">SERVICES</a>
+    <a href="#about">ABOUT</a>
+    <a href="#pricing">PRICING</a>
+    <a href="#contact">CONTACT</a>
+  </div>
 
-          <p>
-            WEBSITES THAT GROW BUSINESSES.
-          </p>
+  <div className="uchit-footer-right">
+    © 2026 UCHIT.WEB
+  </div>
 
-        </div>
-
-
-        <div className="uchit-footer-links">
-
-          <a href="#work">
-            WORK
-          </a>
-
-          <a href="#services">
-            SERVICES
-          </a>
-
-          <a href="#about">
-            ABOUT
-          </a>
-
-          <a href="#pricing">
-            PRICING
-          </a>
-
-          <a href="#contact">
-            CONTACT
-          </a>
-
-        </div>
-
-
-        <div className="uchit-footer-right">
-
-          <a
-            href="https://www.instagram.com/uchit.web/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            INSTAGRAM ↗
-          </a>
-
-          <span>
-            © {new Date().getFullYear()}
-          </span>
-
-        </div>
-
-      </footer>
-
+</footer>
     </main>
   );
 }
