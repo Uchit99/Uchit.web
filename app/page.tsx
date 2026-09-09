@@ -678,22 +678,6 @@ export default function Home() {
         </div>
 
 
-        {/* HERO FOOTER */}
-
-        <div className="uchit-hero-bottom">
-
-          <span>
-            SCROLL TO EXPLORE
-          </span>
-
-          <div />
-
-          <span>
-            UCHIT.WEB
-          </span>
-
-        </div>
-
       </section>
 
 
