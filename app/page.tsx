@@ -813,6 +813,9 @@ export default function Home() {
                     duration: 0.7,
                     delay: index * 0.08,
                   }}
+                  whileHover={{
+                    y: -8,
+                  }}
                 >
 <a
   href={project.live_url}
@@ -862,7 +865,7 @@ export default function Home() {
 
                     </div>
 
-                    <small>
+                    <small aria-hidden="true">
                       {String(
                         index + 1
                       ).padStart(2, "0")}
@@ -897,6 +900,7 @@ export default function Home() {
                       href={project.live_url}
                       target="_blank"
                       rel="noopener noreferrer"
+                      aria-label={`View ${project.title} live site`}
                     >
                       LIVE
                       <ArrowUpRight

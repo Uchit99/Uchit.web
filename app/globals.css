@@ -2621,6 +2621,315 @@ img {
 }
 
 /* =========================================================
+   HOMEPAGE RESPONSIVE + WORK REFRESH
+========================================================= */
+
+.uchit-project {
+  position: relative;
+  transform-origin: center;
+}
+
+.uchit-project-image {
+  display: block;
+  border-radius: 12px;
+  isolation: isolate;
+  box-shadow: 0 20px 55px rgba(0, 0, 0, 0.22);
+}
+
+.uchit-project-image::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    360px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(182, 156, 255, 0.22),
+    transparent 68%
+  );
+  transition: opacity 0.35s ease;
+}
+
+.uchit-project:hover .uchit-project-image::before,
+.uchit-project:focus-within .uchit-project-image::before {
+  opacity: 1;
+}
+
+.uchit-project-hover {
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(5, 5, 7, 0.04), rgba(5, 5, 7, 0.68));
+}
+
+.uchit-project-hover span {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 20px;
+  border-radius: 999px;
+  color: #08080d;
+  background: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  transform: translateY(12px);
+  transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.uchit-project:hover .uchit-project-hover span,
+.uchit-project:focus-within .uchit-project-hover span {
+  transform: translateY(0);
+}
+
+.uchit-project-image small {
+  position: absolute;
+  z-index: 3;
+  top: 18px;
+  left: 18px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(5, 5, 7, 0.48);
+  backdrop-filter: blur(10px);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.uchit-project-info {
+  align-items: center;
+  gap: 28px;
+}
+
+.uchit-project-info > div {
+  min-width: 0;
+}
+
+.uchit-project-info > a {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 15px;
+  border: 1px solid var(--line-bright);
+  border-radius: 999px;
+  color: var(--white);
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.uchit-project-info > a:hover,
+.uchit-project-info > a:focus-visible {
+  border-color: var(--purple-light);
+  color: #fff;
+  background: var(--purple-dark);
+  transform: translateY(-2px);
+}
+
+.uchit-project-image:focus-visible,
+.uchit-project-info > a:focus-visible,
+.uchit-mobile-menu:focus-visible {
+  outline: 2px solid var(--purple-light);
+  outline-offset: 4px;
+}
+
+@media (max-width: 700px) {
+  .uchit-premium {
+    overflow: clip;
+  }
+
+  .uchit-header {
+    width: 100%;
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .uchit-nav {
+    top: 64px;
+    left: 12px;
+    right: 12px;
+    max-height: calc(100dvh - 76px);
+    overflow-y: auto;
+    border-radius: 10px;
+  }
+
+  .uchit-nav a {
+    min-height: 48px;
+    padding: 14px 12px;
+  }
+
+  .uchit-hero-inner {
+    padding: 96px 20px 72px;
+  }
+
+  .uchit-hero-layout {
+    gap: 34px;
+  }
+
+  .uchit-hero-copy h1 {
+    font-size: clamp(46px, 13vw, 70px) !important;
+    line-height: 0.91 !important;
+  }
+
+  .uchit-hero-copy p {
+    max-width: 34rem;
+    font-size: 13px !important;
+  }
+
+  .uchit-hero-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 10px;
+  }
+
+  .uchit-button {
+    width: 100%;
+    padding: 0 12px;
+    justify-content: center;
+    font-size: 9px !important;
+  }
+
+  .uchit-hero-services {
+    gap: 10px 14px;
+  }
+
+  .uchit-hero-services i {
+    display: none;
+  }
+
+  .uchit-hero-animation {
+    width: min(86vw, 360px);
+    height: min(86vw, 360px);
+  }
+
+  .uchit-section {
+    padding: 76px 20px;
+  }
+
+  .uchit-section-top {
+    margin-bottom: 34px;
+  }
+
+  .uchit-projects {
+    gap: 42px;
+  }
+
+  .uchit-project,
+  .uchit-project:nth-child(even) {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .uchit-project-image {
+    aspect-ratio: 4 / 3;
+    border-radius: 10px;
+  }
+
+  .uchit-project-image small {
+    top: 12px;
+    left: 12px;
+    width: 32px;
+    height: 32px;
+    font-size: 8px;
+  }
+
+  .uchit-project-hover {
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 14px;
+    opacity: 1;
+    background: linear-gradient(180deg, transparent 48%, rgba(5, 5, 7, 0.72));
+  }
+
+  .uchit-project-hover span {
+    min-height: 36px;
+    padding: 0 13px;
+    font-size: 8px;
+    transform: none;
+  }
+
+  .uchit-project-info {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    gap: 14px;
+    padding-top: 15px;
+  }
+
+  .uchit-project-info span {
+    margin: 0 0 6px;
+    font-size: 9px !important;
+  }
+
+  .uchit-project-info h3 {
+    font-size: clamp(22px, 6vw, 28px) !important;
+    overflow-wrap: anywhere;
+  }
+
+  .uchit-project-info p {
+    margin-top: 7px;
+    font-size: 12px !important;
+    line-height: 1.6 !important;
+  }
+
+  .uchit-project-info > a {
+    min-height: 38px;
+    padding: 0 12px;
+    font-size: 8px;
+  }
+
+  .uchit-contact-decoration {
+    max-width: 100%;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 380px) {
+  .uchit-hero-inner,
+  .uchit-section {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .uchit-hero-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .uchit-hero-services {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    justify-content: center;
+  }
+
+  .uchit-project-info > a {
+    min-height: 34px;
+    padding: 0 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* =========================================================
    ADMIN DASHBOARD
 ========================================================= */
 
@@ -3654,6 +3963,58 @@ body:has(.admin-dashboard) .floating-whatsapp {
   }
 }
 
+/* Kept last: this project has legacy hero rules above that otherwise override mobile sizing. */
+@media (max-width: 700px) {
+  .uchit-header {
+    height: 64px;
+    padding: 0 16px;
+  }
+
+  .uchit-nav {
+    top: 64px;
+  }
+
+  .uchit-hero-inner {
+    padding: 96px 20px 72px;
+  }
+
+  .uchit-hero-layout {
+    gap: 34px;
+  }
+
+  .uchit-hero-copy h1 {
+    font-size: clamp(46px, 13vw, 70px) !important;
+    line-height: 0.91 !important;
+  }
+
+  .uchit-hero-copy p {
+    font-size: 13px !important;
+  }
+
+  .uchit-hero-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 10px;
+  }
+
+  .uchit-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .uchit-hero-animation {
+    width: min(86vw, 360px);
+    height: min(86vw, 360px);
+  }
+}
+
+@media (max-width: 380px) {
+  .uchit-hero-buttons {
+    grid-template-columns: 1fr;
+  }
+}
+
 
 /* =========================================================
    MOBILE
@@ -3661,10 +4022,27 @@ body:has(.admin-dashboard) .floating-whatsapp {
 
 @media (max-width: 700px) {
 
-  .uchit-hero-copy h1 {
-    font-size: clamp(47px, 13.5vw, 74px) !important;
+  .uchit-header {
+    height: 64px;
+    padding: 0 16px;
+  }
 
-    line-height: 0.9 !important;
+  .uchit-nav {
+    top: 64px;
+  }
+
+  .uchit-hero-inner {
+    padding: 96px 20px 72px;
+  }
+
+  .uchit-hero-layout {
+    gap: 34px;
+  }
+
+  .uchit-hero-copy h1 {
+    font-size: clamp(46px, 13vw, 70px) !important;
+
+    line-height: 0.91 !important;
 
     letter-spacing: -0.035em !important;
 
@@ -3679,5 +4057,26 @@ body:has(.admin-dashboard) .floating-whatsapp {
 
   .uchit-hero-copy h1 span:last-child {
     letter-spacing: -0.02em !important;
+  }
+
+  .uchit-hero-copy p {
+    font-size: 13px !important;
+  }
+
+  .uchit-hero-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 10px;
+  }
+
+  .uchit-button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .uchit-hero-animation {
+    width: min(86vw, 360px);
+    height: min(86vw, 360px);
   }
 }
