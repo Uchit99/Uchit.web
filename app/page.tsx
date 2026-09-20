@@ -360,25 +360,6 @@ export default function Home() {
 
         <div className="uchit-hero-inner">
 
-          <motion.div
-            className="uchit-hero-label"
-            initial={{
-              opacity: 0,
-              y: 20,
-            }}
-            animate={{
-              opacity: 1,
-              y: 0,
-            }}
-            transition={{
-              duration: 0.7,
-            }}
-          >
-            <span />
-            WEB DESIGN &amp; DEVELOPMENT
-          </motion.div>
-
-
           <div className="uchit-hero-layout">
 
             {/* =================================================
@@ -386,6 +367,24 @@ export default function Home() {
             ================================================= */}
 
             <div className="uchit-hero-copy">
+
+              <motion.div
+                className="uchit-hero-label"
+                initial={{
+                  opacity: 0,
+                  y: 20,
+                }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                }}
+                transition={{
+                  duration: 0.7,
+                }}
+              >
+                <span />
+                WEB DESIGN &amp; DEVELOPMENT
+              </motion.div>
 
               <motion.h1
                 initial={{
