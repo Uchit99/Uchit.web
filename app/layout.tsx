@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { StudioExperience } from "./ui/studio-experience";
 
 export const metadata: Metadata = {
   title: "Uchit.web — Websites That Grow Businesses",
@@ -45,8 +46,9 @@ export default function RootLayout({
         <meta name="theme-color" content="#100e18" />
       </head>
 
-     <body>
+ <body>
   {children}
+  <StudioExperience />
 
   <a
     href="https://wa.me/918882184445"

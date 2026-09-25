@@ -5219,3 +5219,7 @@ body:has(.studio-cursor), body:has(.studio-cursor) a, body:has(.studio-cursor) b
 @media (max-width: 700px) {
   .project-image-pan-hint { right: 10px; bottom: 10px; padding: 8px 10px; font-size: 7px; }
 }
+.studio-cursor { width: auto; height: auto; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.studio-cursor-glyph { color: #eee8ff; font-size: 17px; font-weight: 900; line-height: 1; text-shadow: 0 0 12px rgba(196,181,253,.8); }
+.studio-cursor-trail { position: fixed; z-index: 10009; color: rgba(228,219,255,.58); font-size: 7px; font-weight: 800; letter-spacing: .13em; white-space: nowrap; pointer-events: none; translate: -50% -50%; text-shadow: 0 0 13px rgba(167,139,250,.45); }
+.studio-cursor-trail span { color: rgba(196,181,253,.72); }
