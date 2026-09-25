@@ -32,6 +32,7 @@ const services = [
     title: "WEB DESIGN",
     description:
       "Premium visual design built around your brand, customers and business goals.",
+    details: ["Brand-led visual direction", "Clear page hierarchy", "Polished layouts for every screen"],
     icon: PenTool,
   },
   {
@@ -39,6 +40,7 @@ const services = [
     title: "DEVELOPMENT",
     description:
       "Fast, responsive websites built with modern technology and clean structure.",
+    details: ["Responsive page development", "Reliable forms and integrations", "Performance-minded implementation"],
     icon: Code2,
   },
   {
@@ -46,6 +48,7 @@ const services = [
     title: "UI / UX",
     description:
       "Simple interfaces and intuitive experiences that make websites easy to use.",
+    details: ["Easy-to-follow navigation", "Thoughtful mobile experiences", "Accessible interaction patterns"],
     icon: Smartphone,
   },
   {
@@ -53,6 +56,7 @@ const services = [
     title: "MOTION",
     description:
       "Purposeful animation and interactions that make the experience feel alive.",
+    details: ["Subtle interface feedback", "Smooth page transitions", "Motion that supports the content"],
     icon: Sparkles,
   },
 ];
@@ -62,21 +66,29 @@ const process = [
     number: "01",
     title: "DISCOVER",
     text: "We understand your business, audience and goals.",
+    details: ["Clarify your business goals", "Understand your audience", "Plan pages and project scope"],
+    longDescription: "We start by learning what your business does, who the site needs to reach, and what a successful result looks like. That gives the project a clear direction before design begins.",
   },
   {
     number: "02",
     title: "DESIGN",
     text: "I create the visual direction and user experience.",
+    details: ["Set the visual direction", "Arrange content around visitor needs", "Review layouts before development"],
+    longDescription: "The design phase turns the project goals into a clear visual system. We shape the page structure, typography, colors, and key interactions so the experience feels consistent and easy to use.",
   },
   {
     number: "03",
     title: "BUILD",
     text: "The approved design becomes a fast working website.",
+    details: ["Build responsive pages", "Connect forms and agreed integrations", "Refine details across screen sizes"],
+    longDescription: "Once the design direction is approved, I build the website and connect the agreed functionality. The work is reviewed across desktop and mobile so the finished experience feels cohesive.",
   },
   {
     number: "04",
     title: "LAUNCH",
     text: "Your website goes live and starts working for your business.",
+    details: ["Prepare the final content", "Check links and key interactions", "Publish the finished website"],
+    longDescription: "Before launch, we check the important pages and interactions, then publish the finished website. You get a polished handoff and a clear next step for maintaining your site.",
   },
 ];
 const pricing = [
@@ -186,9 +198,32 @@ const pricing = [
 
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [selectedService, setSelectedService] = useState<(typeof services)[number] | null>(null);
+  const [selectedProcess, setSelectedProcess] = useState<(typeof process)[number] | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("work");
+
+  useEffect(() => {
+    if (!selectedProject && !selectedService && !selectedProcess) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setSelectedProject(null);
+        setSelectedService(null);
+        setSelectedProcess(null);
+      }
+    };
+    window.addEventListener("keydown", closeOnEscape);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [selectedProject, selectedService, selectedProcess]);
 
   useEffect(() => {
     async function loadProjects() {
@@ -222,7 +257,6 @@ export default function Home() {
 
       const sections = [
         "work",
-        "services",
         "about",
         "pricing",
         "contact",
@@ -263,11 +297,6 @@ export default function Home() {
       id: "work",
     },
     {
-      label: "SERVICES",
-      href: "#services",
-      id: "services",
-    },
-    {
       label: "ABOUT",
       href: "#about",
       id: "about",
@@ -299,7 +328,13 @@ export default function Home() {
         <Link
           href="/"
           className="uchit-brand"
-          onClick={() => setMenuOpen(false)}
+          onClick={(event) => {
+            setMenuOpen(false);
+            if (window.location.pathname === "/") {
+              event.preventDefault();
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            }
+          }}
         >
           UCHIT<span>.WEB</span>
         </Link>
@@ -816,11 +851,11 @@ export default function Home() {
                     y: -8,
                   }}
                 >
-<a
-  href={project.live_url}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="uchit-project-image"
+<button
+  type="button"
+  className="uchit-project-image project-image-trigger"
+  aria-label={`View details for ${project.title}`}
+  onClick={() => setSelectedProject(project)}
   onMouseMove={(e) => {
     const rect =
       e.currentTarget.getBoundingClientRect();
@@ -855,7 +890,7 @@ export default function Home() {
                     <div className="uchit-project-hover">
 
                       <span>
-                        VIEW PROJECT
+                        VIEW DETAILS
                       </span>
 
                       <ArrowUpRight
@@ -870,7 +905,7 @@ export default function Home() {
                       ).padStart(2, "0")}
                     </small>
 
-                  </a>
+                  </button>
 
 
                   <div className="uchit-project-info">
@@ -886,11 +921,13 @@ export default function Home() {
                         {project.title}
                       </h3>
 
-                      {project.description && (
-                        <p>
-                          {project.description}
-                        </p>
-                      )}
+                      <button
+                        type="button"
+                        className="project-description-trigger"
+                        onClick={() => setSelectedProject(project)}
+                      >
+                        PROJECT DETAILS <ArrowUpRight size={14} />
+                      </button>
 
                     </div>
 
@@ -943,33 +980,29 @@ export default function Home() {
 
 
       {/* =====================================================
-          SERVICES
+      ABOUT
       ===================================================== */}
 
-      <section
-        id="services"
-        className="uchit-section uchit-services"
-      >
+      <section id="about" className="uchit-section uchit-services uchit-about-services">
 
         <div className="uchit-section-top">
 
           <div>
 
             <span>
-              02 / WHAT I DO
+              02 / ABOUT
             </span>
 
             <h2>
-              BUILT AROUND
+              DESIGN WITH
               <br />
-              <em>YOUR BUSINESS.</em>
+              <em>PURPOSE.</em>
             </h2>
 
           </div>
 
           <p>
-            Everything needed to create a strong
-            and professional digital presence.
+            I design and build thoughtful digital experiences that help businesses look credible, communicate clearly, and turn visitors into customers.
           </p>
 
         </div>
@@ -986,7 +1019,17 @@ export default function Home() {
                 <motion.div
                   key={service.number}
                   className="uchit-service"
-                    data-number={service.number}
+                  data-number={service.number}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`View ${service.title} service details`}
+                  onClick={() => setSelectedService(service)}
+                  onKeyDown={(event) => {
+                    if (event.key === "Enter" || event.key === " ") {
+                      event.preventDefault();
+                      setSelectedService(service);
+                    }
+                  }}
                   initial={{
                     opacity: 0,
                     y: 35,
@@ -1041,99 +1084,6 @@ export default function Home() {
 
 
       {/* =====================================================
-          ABOUT
-      ===================================================== */}
-
-      <section
-        id="about"
-        className="uchit-about"
-      >
-
-        <div className="uchit-about-number">
-          03 / ABOUT
-        </div>
-
-
-        <div className="uchit-about-content">
-
-          <div className="uchit-about-heading">
-
-            <span>
-              UCHIT.WEB
-            </span>
-
-            <h2>
-              I BUILD
-              <br />
-              WEBSITES
-              <br />
-              <em>WITH PURPOSE.</em>
-            </h2>
-
-          </div>
-
-
-          <div className="uchit-about-text">
-
-            <p className="large">
-              A website should do more than
-              simply exist. It should make your
-              business look credible, communicate
-              clearly and give people a reason
-              to choose you.
-            </p>
-
-            <p>
-              That&apos;s what I focus on with every
-              project — combining thoughtful design,
-              modern development and subtle
-              interactions to create digital
-              experiences that actually work.
-            </p>
-
-
-            <div className="uchit-about-stats">
-
-              <div>
-                <strong>
-                  100%
-                </strong>
-
-                <span>
-                  RESPONSIVE
-                </span>
-              </div>
-
-              <div>
-                <strong>
-                  UI/UX
-                </strong>
-
-                <span>
-                  DESIGN FIRST
-                </span>
-              </div>
-
-              <div>
-                <strong>
-                  FAST
-                </strong>
-
-                <span>
-                  PERFORMANCE
-                </span>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* =====================================================
           PROCESS
       ===================================================== */}
 
@@ -1144,7 +1094,7 @@ export default function Home() {
           <div>
 
             <span>
-              04 / PROCESS
+              03 / PROCESS
             </span>
 
             <h2>
@@ -1166,6 +1116,16 @@ export default function Home() {
               <motion.div
                 key={item.number}
                 className="uchit-process-item"
+                role="button"
+                tabIndex={0}
+                aria-label={`View details for ${item.title.toLowerCase()} phase`}
+                onClick={() => setSelectedProcess(item)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setSelectedProcess(item);
+                  }
+                }}
                 initial={{
                   opacity: 0,
                   y: 30,
@@ -1196,6 +1156,8 @@ export default function Home() {
                   {item.text}
                 </p>
 
+                <span className="process-card-link">EXPLORE PHASE <ArrowUpRight size={14} /></span>
+
               </motion.div>
 
             )
@@ -1215,7 +1177,7 @@ export default function Home() {
 >
   <div className="uchit-section-top">
     <div>
-      <span>05 / WEBSITE SOLUTIONS</span>
+      <span>04 / WEBSITE SOLUTIONS</span>
 
       <h2>
         FIND YOUR
@@ -1334,7 +1296,7 @@ export default function Home() {
   <div className="uchit-contact-inner">
 
     <div className="uchit-contact-label">
-      06 / START A PROJECT
+      05 / START A PROJECT
     </div>
 
     <h2>
@@ -1410,17 +1372,137 @@ export default function Home() {
 
   <div className="uchit-footer-links">
     <a href="#work">WORK</a>
-    <a href="#services">SERVICES</a>
     <a href="#about">ABOUT</a>
     <a href="#pricing">PRICING</a>
     <a href="#contact">CONTACT</a>
   </div>
 
-  <div className="uchit-footer-right">
+      <div className="uchit-footer-right">
     © 2026 UCHIT.WEB
   </div>
 
 </footer>
+
+      {(selectedProject || selectedService || selectedProcess) && (
+        <motion.div
+          className="project-detail-backdrop"
+          role="presentation"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              setSelectedProject(null);
+              setSelectedService(null);
+              setSelectedProcess(null);
+            }
+          }}
+        >
+          {selectedProject ? (
+            <motion.section
+              className="project-detail-card"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="project-detail-title"
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.22 }}
+            >
+              <button className="project-detail-close" type="button" aria-label="Close project details" onClick={() => setSelectedProject(null)}>
+                <X size={18} />
+              </button>
+              <div
+                className="project-detail-image"
+                onPointerMove={(event) => {
+                  const bounds = event.currentTarget.getBoundingClientRect();
+                  const x = Math.max(0, Math.min(100, ((event.clientX - bounds.left) / bounds.width) * 100));
+                  const y = Math.max(0, Math.min(100, ((event.clientY - bounds.top) / bounds.height) * 100));
+                  event.currentTarget.style.setProperty("--image-x", `${x}%`);
+                  event.currentTarget.style.setProperty("--image-y", `${y}%`);
+                }}
+                onPointerLeave={(event) => {
+                  if (event.pointerType === "mouse") {
+                    event.currentTarget.style.setProperty("--image-x", "50%");
+                    event.currentTarget.style.setProperty("--image-y", "50%");
+                  }
+                }}
+              >
+                {selectedProject.image_url ? (
+                  <>
+                    <img src={selectedProject.image_url} alt={selectedProject.title} draggable={false} />
+                    <span className="project-image-pan-hint">MOVE OR DRAG TO EXPLORE</span>
+                  </>
+                ) : (
+                  <div className="uchit-project-empty">UCHIT.WEB</div>
+                )}
+              </div>
+              <div className="project-detail-content">
+                <div className="project-detail-kicker"><span>{selectedProject.category || "WEBSITE"}</span><span>PROJECT</span></div>
+                <h2 id="project-detail-title">{selectedProject.title}</h2>
+                <p>{selectedProject.description || "A website project designed to give this business a clear, polished online presence."}</p>
+                <a className="project-detail-visit" href={selectedProject.live_url} target="_blank" rel="noopener noreferrer">
+                  VISIT LIVE WEBSITE <ArrowUpRight size={16} />
+                </a>
+                <div className="project-detail-note">
+                  <span>PROJECT OVERVIEW</span>
+                  <p>This project brings its content and visual identity together in one clear online experience.</p>
+                </div>
+              </div>
+            </motion.section>
+          ) : selectedService ? (
+            <motion.section
+              className="service-detail-card"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="service-detail-title"
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.22 }}
+            >
+              <button className="project-detail-close" type="button" aria-label="Close service details" onClick={() => setSelectedService(null)}>
+                <X size={18} />
+              </button>
+              <span className="service-detail-number">ABOUT / SERVICES / {selectedService.number}</span>
+              <selectedService.icon className="service-detail-icon" size={28} />
+              <h2 id="service-detail-title">{selectedService.title}</h2>
+              <p>{selectedService.description}</p>
+              <ul>
+                {selectedService.details.map((detail) => (
+                  <li key={detail}><Check size={15} />{detail}</li>
+                ))}
+              </ul>
+              <a className="project-detail-visit" href={`https://wa.me/918882184445?text=${encodeURIComponent(`Hi Uchit, I'm interested in ${selectedService.title.toLowerCase()} for my website.`)}`} target="_blank" rel="noopener noreferrer">
+                DISCUSS THIS SERVICE <ArrowUpRight size={16} />
+              </a>
+            </motion.section>
+          ) : selectedProcess ? (
+            <motion.section
+              className="service-detail-card process-detail-card"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="process-detail-title"
+              initial={{ opacity: 0, y: 18, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.22 }}
+            >
+              <button className="project-detail-close" type="button" aria-label="Close process details" onClick={() => setSelectedProcess(null)}>
+                <X size={18} />
+              </button>
+              <span className="service-detail-number">THE PROCESS / {selectedProcess.number}</span>
+              <h2 id="process-detail-title">{selectedProcess.title}</h2>
+              <p>{selectedProcess.longDescription}</p>
+              <ul>
+                {selectedProcess.details.map((detail) => (
+                  <li key={detail}><Check size={15} />{detail}</li>
+                ))}
+              </ul>
+              <a className="project-detail-visit" href="#contact" onClick={() => setSelectedProcess(null)}>
+                START A PROJECT <ArrowUpRight size={16} />
+              </a>
+            </motion.section>
+          ) : null}
+        </motion.div>
+      )}
     </main>
   );
 }
