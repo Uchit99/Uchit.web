@@ -889,3 +889,7 @@ img { display: block; }
   .service-detail-card h2 { font-size: clamp(34px,10vw,48px) !important; }
   .uchit-process-grid { margin-top: 22px !important; }
 }
+
+/* Sections keep full-bleed backgrounds; their inner content stays centered. */
+.uchit-premium { width: 100%; max-width: 100%; min-width: 0; }
+.uchit-premium > .uchit-section { width: 100%; max-width: none !important; margin-inline: 0 !important; }
