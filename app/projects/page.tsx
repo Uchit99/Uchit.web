@@ -50,7 +50,7 @@ export default function ProjectsPage() {
 
       <nav className="projects-nav">
         <Link href="/" className="projects-logo">
-          UCHIT<span>.WEB</span>
+          UCHIT-WEB
         </Link>
 
         <Link href="/" className="projects-back">
@@ -68,7 +68,7 @@ export default function ProjectsPage() {
           transition={{ duration: 0.8 }}
         >
           <p className="projects-eyebrow">
-            UCHIT.WEB / SELECTED WORK
+            UCHIT-WEB / SELECTED WORK
           </p>
 
           <h1>
@@ -157,7 +157,7 @@ export default function ProjectsPage() {
                 ) : (
                   <div className="premium-image-placeholder">
                     <Monitor size={45} />
-                    <span>UCHIT.WEB</span>
+                    <span>UCHIT-WEB</span>
                   </div>
                 )}
 
@@ -223,7 +223,7 @@ export default function ProjectsPage() {
       </section>
 
       <footer className="projects-footer">
-        <span>UCHIT.WEB</span>
+        <span>UCHIT-WEB</span>
         <span>WEBSITES THAT GROW BUSINESSES.</span>
       </footer>
 

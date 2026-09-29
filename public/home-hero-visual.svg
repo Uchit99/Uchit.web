@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" fill="none">
+  <defs>
+    <linearGradient id="bg" x1="140" y1="80" x2="1030" y2="850" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#383A47"/><stop offset="1" stop-color="#191A20"/>
+    </linearGradient>
+    <linearGradient id="art" x1="470" y1="390" x2="940" y2="700" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D8125B"/><stop offset=".52" stop-color="#883C68"/><stop offset="1" stop-color="#34354B"/>
+    </linearGradient>
+    <linearGradient id="light" x1="680" y1="380" x2="890" y2="690" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5D8BD"/><stop offset="1" stop-color="#D8125B"/>
+    </linearGradient>
+    <filter id="shadow" x="100" y="70" width="1020" height="800" color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/><feGaussianBlur in="BackgroundImageFix" stdDeviation="22"/>
+      <feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur"/><feColorMatrix in="SourceAlpha" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="24"/><feGaussianBlur stdDeviation="22"/><feComposite in2="hardAlpha" operator="out"/><feColorMatrix values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0"/><feBlend in2="effect1_backgroundBlur" result="effect2_dropShadow"/><feBlend in="SourceGraphic" in2="effect2_dropShadow" result="shape"/>
+    </filter>
+    <clipPath id="photo"><rect x="527" y="389" width="465" height="329" rx="5"/></clipPath>
+  </defs>
+  <circle cx="829" cy="412" r="285" fill="#D8125B" fill-opacity=".1"/>
+  <g filter="url(#shadow)">
+    <rect x="176" y="154" width="848" height="594" rx="14" fill="url(#bg)" stroke="#FFFFFF" stroke-opacity=".22"/>
+    <path d="M190 154h820a14 14 0 0 1 14 14v52H176v-52a14 14 0 0 1 14-14Z" fill="#252630"/>
+    <circle cx="202" cy="189" r="5" fill="#D8125B"/><circle cx="221" cy="189" r="5" fill="#B9AFA9"/><circle cx="240" cy="189" r="5" fill="#777987"/>
+    <rect x="434" y="177" width="329" height="24" rx="12" fill="#17181E" stroke="#FFFFFF" stroke-opacity=".08"/>
+    <path d="M448 189h8" stroke="#A5A5AE" stroke-width="2" stroke-linecap="round"/><rect x="465" y="185" width="105" height="8" rx="4" fill="#6B6D79" fill-opacity=".68"/>
+    <text x="207" y="263" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="15" font-weight="700" letter-spacing="2.5">U / STUDIO</text>
+    <text x="708" y="263" fill="#C5C4CC" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.4">WORK</text>
+    <text x="785" y="263" fill="#C5C4CC" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.4">STUDIO</text>
+    <text x="875" y="263" fill="#C5C4CC" font-family="Arial,sans-serif" font-size="10" letter-spacing="1.4">CONTACT</text>
+    <path d="M200 290h800" stroke="#FFFFFF" stroke-opacity=".12"/>
+    <text x="208" y="361" fill="#F0A8C2" font-family="Arial,sans-serif" font-size="10" letter-spacing="2.4">A BETTER DIGITAL PRESENCE</text>
+    <text x="204" y="423" fill="#FFFFFF" font-family="Georgia,serif" font-size="48" letter-spacing="-2">Make your next</text>
+    <text x="204" y="477" fill="#FFFFFF" font-family="Georgia,serif" font-size="48" letter-spacing="-2">move <tspan fill="#E55488">memorable.</tspan></text>
+    <text x="208" y="520" fill="#B8B7C0" font-family="Arial,sans-serif" font-size="12">A considered online experience, made around you.</text>
+    <rect x="208" y="554" width="145" height="42" rx="3" fill="#D8125B"/>
+    <text x="229" y="580" fill="#FFFFFF" font-family="Arial,sans-serif" font-size="9" font-weight="700" letter-spacing="1.4">EXPLORE THE WORK</text>
+    <g clip-path="url(#photo)">
+      <rect x="527" y="389" width="465" height="329" fill="url(#art)"/>
+      <path d="M527 642c90-83 131-115 211-70 61 35 101 31 254-126v272H527V642Z" fill="#292B3A" fill-opacity=".84"/>
+      <path d="M527 670c118-93 177-96 242-50 58 42 116 34 223-37v135H527V670Z" fill="#D8125B" fill-opacity=".72"/>
+      <circle cx="853" cy="475" r="47" fill="url(#light)"/>
+      <path d="M789 548c27-45 71-48 103-13l76 87H718l71-74Z" fill="#E9D4C7" fill-opacity=".8"/>
+      <path d="M599 567c41-66 91-70 131-14l56 69H548l51-55Z" fill="#37394A"/>
+      <path d="M547 690h422" stroke="#FFFFFF" stroke-opacity=".55"/>
+    </g>
+    <rect x="527.5" y="389.5" width="464" height="328" rx="4.5" stroke="#FFFFFF" stroke-opacity=".24"/>
+    <text x="207" y="692" fill="#868894" font-family="Arial,sans-serif" font-size="9" letter-spacing="1.7">STRATEGY</text>
+    <circle cx="287" cy="688" r="2" fill="#D8125B"/><text x="300" y="692" fill="#868894" font-family="Arial,sans-serif" font-size="9" letter-spacing="1.7">DESIGN</text>
+    <circle cx="372" cy="688" r="2" fill="#D8125B"/><text x="385" y="692" fill="#868894" font-family="Arial,sans-serif" font-size="9" letter-spacing="1.7">DEVELOPMENT</text>
+  </g>
+  <g transform="rotate(-5 935 720)">
+    <rect x="830" y="661" width="222" height="130" rx="6" fill="#242630" stroke="#FFFFFF" stroke-opacity=".2"/>
+    <text x="852" y="691" fill="#E887AA" font-family="Arial,sans-serif" font-size="9" letter-spacing="1.8">BUILT FOR WHAT&apos;S NEXT</text>
+    <text x="850" y="733" fill="#FFFFFF" font-family="Georgia,serif" font-size="24">Clear by design.</text>
+    <path d="M852 757h176" stroke="#FFFFFF" stroke-opacity=".16"/><path d="M852 757h93" stroke="#D8125B" stroke-width="2"/>
+  </g>
+</svg>

@@ -62,7 +62,7 @@ export default function AdminLogin() {
             marginBottom: "20px",
           }}
         >
-          UCHIT.WEB / PRIVATE AREA
+          UCHIT-WEB / PRIVATE AREA
         </p>
 
         <h1
@@ -74,7 +74,7 @@ export default function AdminLogin() {
         >
           ADMIN
           <br />
-          <span style={{ color: "#8b5cf6" }}>LOGIN.</span>
+          <span style={{ color: "#D8125B" }}>LOGIN.</span>
         </h1>
 
         <p style={{ color: "#888", marginBottom: "30px" }}>

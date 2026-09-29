@@ -1,33 +1,46 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./redesign.css";
 import { StudioExperience } from "./ui/studio-experience";
 
 export const metadata: Metadata = {
-  title: "Uchit.web — Websites That Grow Businesses",
+  title: "UCHIT-WEB — Independent Web Design & Development",
   description:
-    "Uchit.web builds modern, fast and premium websites for businesses, brands and individuals.",
+    "Independent web design and development for businesses that want a credible, memorable online presence. Based in India.",
   keywords: [
-    "Uchit.web",
+    "Uchit-web",
     "web developer",
     "web designer",
     "website development",
     "business website",
     "freelance web developer",
     "website designer India",
+    "UI UX design",
+    "ecommerce website",
   ],
   authors: [
     {
       name: "Uchit",
     },
   ],
-  creator: "Uchit.web",
-  metadataBase: new URL("http://localhost:3000"),
+  creator: "UCHIT-WEB",
+  ...(process.env.NEXT_PUBLIC_SITE_URL
+    ? {
+        metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL),
+        alternates: { canonical: "/" },
+      }
+    : {}),
   openGraph: {
-    title: "Uchit.web — Websites That Grow Businesses",
-    description:
-      "Modern websites designed and developed to help businesses grow online.",
+    title: "UCHIT-WEB — Independent Web Design & Development",
+    description: "Websites and digital experiences that help businesses look credible and memorable.",
     type: "website",
-    siteName: "Uchit.web",
+    siteName: "UCHIT-WEB",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "UCHIT-WEB — Independent Web Design & Development",
+    description: "Websites and digital experiences that help businesses look credible and memorable.",
   },
   robots: {
     index: true,
@@ -43,7 +56,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <meta name="theme-color" content="#100e18" />
+        <meta name="theme-color" content="#0b0c0e" />
       </head>
 
  <body>

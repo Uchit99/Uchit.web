@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import {
   ArrowDown,
   ArrowUpRight,
@@ -16,6 +18,9 @@ import {
   X,
 } from "lucide-react";
 import { supabase } from "@/lib/supabase";
+import { Container, Grid, Section, SectionHeader } from "./ui/layout-primitives";
+
+const IntroExperience = dynamic(() => import("./ui/intro-experience"), { ssr: false });
 
 type Project = {
   id: string;
@@ -198,6 +203,7 @@ const pricing = [
 
 export default function Home() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [projectFilter, setProjectFilter] = useState("ALL");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [selectedService, setSelectedService] = useState<(typeof services)[number] | null>(null);
   const [selectedProcess, setSelectedProcess] = useState<(typeof process)[number] | null>(null);
@@ -258,6 +264,7 @@ export default function Home() {
       const sections = [
         "work",
         "about",
+        "services",
         "pricing",
         "contact",
       ];
@@ -302,6 +309,11 @@ export default function Home() {
       id: "about",
     },
     {
+      label: "SERVICES",
+      href: "#services",
+      id: "services",
+    },
+    {
       label: "PRICING",
       href: "#pricing",
       id: "pricing",
@@ -313,8 +325,21 @@ export default function Home() {
     },
   ];
 
+  const projectFilters = ["ALL", "WEB DESIGN", "DEVELOPMENT", "E-COMMERCE", "UI/UX", "MOTION"];
+  const visibleProjects = projects.filter((project) => {
+    if (projectFilter === "ALL") return true;
+    const category = `${project.category ?? ""} ${project.title} ${project.description ?? ""}`.toLowerCase();
+    if (projectFilter === "E-COMMERCE") return /e-?commerce|shop|store|retail/.test(category);
+    if (projectFilter === "UI/UX") return /ui\s*\/?\s*ux|experience|interface/.test(category);
+    if (projectFilter === "WEB DESIGN") return /design|landing|website|web/.test(category);
+    if (projectFilter === "DEVELOPMENT") return /develop|build|website|web/.test(category);
+    return /motion|animation|interaction/.test(category);
+  });
+  const featuredProject = projects.find((project) => project.image_url);
+
   return (
     <main className="uchit-premium">
+      <IntroExperience />
 
       {/* =====================================================
           NAVBAR
@@ -336,10 +361,11 @@ export default function Home() {
             }
           }}
         >
-          UCHIT<span>.WEB</span>
+          UCHIT-WEB
         </Link>
 
         <nav
+          id="primary-navigation"
           className={`uchit-nav ${
             menuOpen ? "uchit-nav-open" : ""
           }`}
@@ -375,6 +401,8 @@ export default function Home() {
           className="uchit-mobile-menu"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          aria-controls="primary-navigation"
         >
           {menuOpen ? (
             <X size={21} />
@@ -418,7 +446,7 @@ export default function Home() {
                 }}
               >
                 <span />
-                WEB DESIGN &amp; DEVELOPMENT
+                WEB DESIGN + DEVELOPMENT
               </motion.div>
 
               <motion.h1
@@ -435,11 +463,11 @@ export default function Home() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                WEBSITES
+                I BUILD
                 <br />
-                THAT
+                DIGITAL
                 <br />
-                <em>GROW.</em>
+                <em>EXPERIENCES.</em>
               </motion.h1>
 
 
@@ -457,10 +485,7 @@ export default function Home() {
                   delay: 0.35,
                 }}
               >
-                I design and develop modern websites
-                that help businesses look professional,
-                build trust and turn visitors into
-                customers.
+                I design and develop high-performance websites, e-commerce experiences and digital identities for ambitious businesses.
               </motion.p>
 
 
@@ -483,7 +508,7 @@ export default function Home() {
                   href="#work"
                   className="uchit-button uchit-button-light"
                 >
-                  VIEW MY WORK
+                  VIEW SELECTED WORK
                   <ArrowDown size={16} />
                 </a>
 
@@ -493,7 +518,7 @@ export default function Home() {
                   rel="noopener noreferrer"
                   className="uchit-button uchit-button-dark"
                 >
-                  LET&apos;S TALK
+                  START A PROJECT
                   <ArrowUpRight size={16} />
                 </a>
 
@@ -534,183 +559,30 @@ export default function Home() {
             ================================================= */}
 
             <div className="uchit-hero-animation">
-
-              <div className="hero-animation-glow" />
-
-
-              {/* OUTER RING */}
-
-              <motion.div
-                className="hero-animation-ring ring-one"
-                animate={{
-                  rotate: 360,
-                }}
-                transition={{
-                  duration: 22,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                <span />
-              </motion.div>
-
-
-              {/* MIDDLE RING */}
-
-              <motion.div
-                className="hero-animation-ring ring-two"
-                animate={{
-                  rotate: -360,
-                }}
-                transition={{
-                  duration: 16,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                <span />
-              </motion.div>
-
-
-              {/* INNER RING */}
-
-              <motion.div
-                className="hero-animation-ring ring-three"
-                animate={{
-                  rotate: 360,
-                }}
-                transition={{
-                  duration: 11,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              >
-                <span />
-              </motion.div>
-
-
-              {/* =================================================
-                  CENTRAL U / W LOGO
-              ================================================= */}
-
-              <motion.div
-                className="hero-monogram"
-                animate={{
-                  y: [0, -12, 0],
-                  rotateX: [0, 4, 0],
-                  rotateY: [0, -5, 0],
-                }}
-                transition={{
-                  duration: 5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              >
-
-                <div className="monogram-inner">
-
-                  <span>
-                    U
-                  </span>
-
-                  <b>
-                    W
-                  </b>
-
+              <div className="hero-showcase">
+                <img
+                  className="hero-showcase-image"
+                  src={featuredProject?.image_url ?? "/home-hero-visual.svg"}
+                  alt={featuredProject ? `${featuredProject.title} website project` : "A preview of a polished website design"}
+                  fetchPriority="high"
+                />
+                <div className="hero-showcase-shade" />
+                <div className="hero-showcase-topline"><span>SELECTED WORK</span><span>01 / 06</span></div>
+                <div className="hero-showcase-caption">
+                  <div><span>{featuredProject?.category ?? "DIGITAL EXPERIENCE"}</span><strong>{featuredProject?.title ?? "Thoughtful design. Built to perform."}</strong></div>
+                  <a href="#work" aria-label="Explore selected work"><ArrowUpRight size={18} /></a>
                 </div>
-
-                <div className="monogram-line" />
-
-              </motion.div>
-
-
-              {/* LIGHT BEAM */}
-
-              <motion.div
-                className="hero-light-beam"
-                animate={{
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-              />
-
-
-              {/* PARTICLE 1 */}
-
-              <motion.i
-                className="hero-particle particle-one"
-                animate={{
-                  y: [0, -35, 0],
-                  opacity: [0.3, 1, 0.3],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-
-
-              {/* PARTICLE 2 */}
-
-              <motion.i
-                className="hero-particle particle-two"
-                animate={{
-                  y: [0, 25, 0],
-                  opacity: [0.2, 0.9, 0.2],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-
-
-              {/* PARTICLE 3 */}
-
-              <motion.i
-                className="hero-particle particle-three"
-                animate={{
-                  x: [0, 25, 0],
-                  opacity: [0.2, 1, 0.2],
-                }}
-                transition={{
-                  duration: 3.5,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-              />
-
-
-              {/* LABELS */}
-
-              <span className="hero-animation-label label-top">
-                CREATIVE
-              </span>
-
-              <span className="hero-animation-label label-right">
-                DIGITAL
-              </span>
-
-              <span className="hero-animation-label label-bottom">
-                EXPERIENCE
-              </span>
-
-              <span className="hero-animation-label label-left">
-                01 / 04
-              </span>
-
+                <div className="hero-showcase-index">DESIGN · DEVELOPMENT</div>
+              </div>
             </div>
 
           </div>
 
         </div>
 
+        <a className="hero-scroll-indicator" href="#work">
+          <span>SCROLL TO EXPLORE</span><ArrowDown size={14} />
+        </a>
 
       </section>
 
@@ -792,221 +664,188 @@ export default function Home() {
           WORK
       ===================================================== */}
 
-      <section
-        id="work"
-        className="uchit-section uchit-work"
-      >
-
+      <section id="work" className="uchit-section uchit-work">
         <div className="uchit-section-top">
-
           <div>
-
-            <span>
-              01 / SELECTED WORK
-            </span>
-
-            <h2>
-              RECENT
-              <br />
-              <em>PROJECTS.</em>
-            </h2>
-
+            <span>01 / SELECTED WORK</span>
+            <h2>EXPERIENCES<br /><em>THAT MOVE.</em></h2>
           </div>
-
-          <p>
-            A selection of digital experiences
-            designed and developed for businesses.
-          </p>
-
+          <p>A selection of digital experiences designed and developed for businesses.</p>
         </div>
 
-
         {projects.length > 0 ? (
-
-          <div className="uchit-projects">
-
-            {projects.map(
-              (project, index) => (
-
+          <>
+            <div className="project-filter" role="group" aria-label="Filter projects">
+              {projectFilters.map((filter) => (
+                <button
+                  type="button"
+                  key={filter}
+                  className={projectFilter === filter ? "project-filter-active" : ""}
+                  aria-pressed={projectFilter === filter}
+                  onClick={() => setProjectFilter(filter)}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
+            <div className="uchit-projects">
+              {visibleProjects.map((project, index) => (
                 <motion.article
                   key={project.id}
                   className="uchit-project"
-                  initial={{
-                    opacity: 0,
-                    y: 50,
-                  }}
-                  whileInView={{
-                    opacity: 1,
-                    y: 0,
-                  }}
-                  viewport={{
-                    once: true,
-                    amount: 0.15,
-                  }}
-                  transition={{
-                    duration: 0.7,
-                    delay: index * 0.08,
-                  }}
-                  whileHover={{
-                    y: -8,
-                  }}
+                  initial={{ opacity: 0, y: 32 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.55, delay: Math.min(index * 0.07, 0.21) }}
                 >
-<button
-  type="button"
-  className="uchit-project-image project-image-trigger"
-  aria-label={`View details for ${project.title}`}
-  onClick={() => setSelectedProject(project)}
-  onMouseMove={(e) => {
-    const rect =
-      e.currentTarget.getBoundingClientRect();
-
-    e.currentTarget.style.setProperty(
-      "--mouse-x",
-      `${e.clientX - rect.left}px`
-    );
-
-    e.currentTarget.style.setProperty(
-      "--mouse-y",
-      `${e.clientY - rect.top}px`
-    );
-  }}
->
-
+                  <button
+                    type="button"
+                    className="uchit-project-image project-image-trigger"
+                    aria-label={`View details for ${project.title}`}
+                    onClick={() => setSelectedProject(project)}
+                    data-cursor="VIEW"
+                  >
                     {project.image_url ? (
-
-                      <img
-                        src={project.image_url}
-                        alt={project.title}
-                      />
-
+                      <img src={project.image_url} alt={project.title} loading="lazy" />
                     ) : (
-
-                      <div className="uchit-project-empty">
-                        UCHIT.WEB
-                      </div>
-
+                      <div className="uchit-project-empty">UCHIT-WEB</div>
                     )}
-
-                    <div className="uchit-project-hover">
-
-                      <span>
-                        VIEW DETAILS
-                      </span>
-
-                      <ArrowUpRight
-                        size={24}
-                      />
-
-                    </div>
-
-                    <small aria-hidden="true">
-                      {String(
-                        index + 1
-                      ).padStart(2, "0")}
-                    </small>
-
+                    <span className="project-view-label">VIEW PROJECT <ArrowUpRight size={17} /></span>
+                    <small aria-hidden="true">{String(index + 1).padStart(2, "0")}</small>
                   </button>
-
-
                   <div className="uchit-project-info">
-
                     <div>
-
-                      <span>
-                        {project.category ||
-                          "WEBSITE"}
-                      </span>
-
-                      <h3>
-                        {project.title}
-                      </h3>
-
-                      <button
-                        type="button"
-                        className="project-description-trigger"
-                        onClick={() => setSelectedProject(project)}
-                      >
-                        PROJECT DETAILS <ArrowUpRight size={14} />
+                      <span>{project.category || "WEBSITE"}</span>
+                      <h3>{project.title}</h3>
+                      {project.description && <p>{project.description}</p>}
+                      <button type="button" className="project-description-trigger" onClick={() => setSelectedProject(project)}>
+                        CASE STUDY <ArrowUpRight size={14} />
                       </button>
-
                     </div>
-
-
-                    <a
-                      href={project.live_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`View ${project.title} live site`}
-                    >
-                      LIVE
-                      <ArrowUpRight
-                        size={17}
-                      />
+                    <a href={project.live_url} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} live site`} data-cursor="OPEN">
+                      LIVE <ArrowUpRight size={17} />
                     </a>
-
                   </div>
-
                 </motion.article>
-
-              )
-            )}
-
-          </div>
-
+              ))}
+              {!visibleProjects.length && <p className="project-filter-empty">No projects in this category yet.</p>}
+            </div>
+          </>
         ) : (
-
           <div className="uchit-no-projects">
-
-            <span>
-              YOUR NEXT PROJECT
-            </span>
-
-            <h3>
-              COULD BE HERE.
-            </h3>
-
-            <a href="#contact">
-              START A PROJECT
-              <ArrowUpRight
-                size={16}
-              />
-            </a>
-
+            <span>YOUR NEXT PROJECT</span>
+            <h3>COULD BE HERE.</h3>
+            <a href="#contact">START A PROJECT <ArrowUpRight size={16} /></a>
           </div>
-
         )}
-
       </section>
+
 
 
       {/* =====================================================
       ABOUT
       ===================================================== */}
 
-      <section id="about" className="uchit-section uchit-services uchit-about-services">
+      <section id="about" className="uchit-about-section">
+        <div className="uchit-about-inner">
+          <div className="uchit-about-kicker"><span>02 / ABOUT ME</span><i /><span>DESIGN · CODE · MOTION</span></div>
+          <div className="uchit-about-layout">
+            <motion.div
+              className="uchit-about-title"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span className="uchit-about-overline">A DESIGNER WHO BUILDS</span>
+              <h2>MEET<br /><em>UCHIT.</em></h2>
+            </motion.div>
+            <motion.div
+              className="uchit-about-portrait-wrap"
+              initial={{ opacity: 0, y: 28 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div
+                className="uchit-about-portrait"
+                onPointerMove={(event) => {
+                  const bounds = event.currentTarget.getBoundingClientRect();
+                  const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+                  const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+                  event.currentTarget.style.setProperty("--portrait-x", `${x * 8}px`);
+                  event.currentTarget.style.setProperty("--portrait-y", `${y * 8}px`);
+                }}
+                onPointerLeave={(event) => {
+                  event.currentTarget.style.setProperty("--portrait-x", "0px");
+                  event.currentTarget.style.setProperty("--portrait-y", "0px");
+                }}
+              >
+                <Image
+                  src="/images/uchit-profile.png"
+                  alt="Uchit Mishra"
+                  fill
+                  sizes="(max-width: 767px) 90vw, (max-width: 1100px) 42vw, 38vw"
+                  className="uchit-about-portrait-image"
+                />
+                <span className="uchit-about-image-index">PORTRAIT / 001</span>
+                <span className="uchit-about-image-caption">UCHIT MISHRA <i>WEB DESIGNER &amp; DEVELOPER</i></span>
+              </div>
+              <span className="uchit-about-image-note">INDEPENDENT DIGITAL STUDIO · INDIA</span>
+            </motion.div>
 
-        <div className="uchit-section-top">
+            <motion.div
+              className="uchit-about-content"
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.65, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="uchit-about-story">
+                <p>I’m Uchit — a web designer and developer focused on building modern digital experiences for businesses, brands and creators.</p>
+                <p>I combine design, development and motion to create websites that don’t just look good — they communicate clearly, build credibility and give businesses a stronger digital presence.</p>
+                <p>I’m currently growing my skills across modern web technologies while building real-world projects and working with businesses.</p>
+              </div>
 
-          <div>
+              <div className="uchit-about-details">
+                <div><span>BASED IN</span><strong>India</strong></div>
+                <div><span>FOCUS</span><strong>Web design · Frontend · UI / UX · Motion</strong></div>
+                <div className="uchit-about-current"><span>CURRENTLY</span><strong>Building digital experiences and growing through real-world projects.</strong></div>
+              </div>
 
-            <span>
-              02 / ABOUT
-            </span>
+              <div className="uchit-about-toolbox">
+                <div className="uchit-about-toolbox-heading"><span>THE TOOLBOX</span><i>12 TECHNOLOGIES</i></div>
+                <ul>
+                  {["HTML", "CSS", "JavaScript", "React", "Next.js", "Node.js", "Express", "MongoDB", "PostgreSQL", "Prisma", "Git", "GitHub"].map((skill, index) => (
+                    <motion.li
+                      key={skill}
+                      title={`${skill} — part of my working toolbox`}
+                      initial={{ opacity: 0, y: 8 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.3, delay: index * 0.035 }}
+                    >{skill}</motion.li>
+                  ))}
+                </ul>
+              </div>
 
-            <h2>
-              DESIGN WITH
-              <br />
-              <em>PURPOSE.</em>
-            </h2>
-
+              <div className="uchit-about-footer">
+                <div className="uchit-about-signature"><span>DESIGN.</span><span>CODE.</span><span>MOTION.</span></div>
+                <div className="uchit-about-actions">
+                  <a href="#contact" className="uchit-button uchit-button-light">START A PROJECT <ArrowUpRight size={16} /></a>
+                  <a href="#work" className="uchit-about-work-link">VIEW MY WORK <ArrowDown size={15} /></a>
+                </div>
+              </div>
+            </motion.div>
           </div>
-
-          <p>
-            I design and build thoughtful digital experiences that help businesses look credible, communicate clearly, and turn visitors into customers.
-          </p>
-
         </div>
+      </section>
 
+      <section id="services" className="uchit-section uchit-services uchit-services-section">
+        <div className="uchit-section-top">
+          <div><span>03 / SERVICES</span><h2>WHAT I<br /><em>DO.</em></h2></div>
+          <p>Design and development that help businesses show up with clarity, confidence and a more considered digital presence.</p>
+        </div>
 
         <div className="uchit-services-grid">
 
@@ -1094,13 +933,13 @@ export default function Home() {
           <div>
 
             <span>
-              03 / PROCESS
+              04 / PROCESS
             </span>
 
             <h2>
-              SIMPLE.
+              HOW I
               <br />
-              <em>FOCUSED.</em>
+              <em>WORK.</em>
             </h2>
 
           </div>
@@ -1169,6 +1008,37 @@ export default function Home() {
 
 
       {/* =====================================================
+          MOTION LAB
+      ===================================================== */}
+      <Section id="motion" className="uchit-section motion-lab">
+        <Container className="motion-lab-inner">
+        <SectionHeader eyebrow="05 / MOTION LAB" title={<>SMALL EXPERIMENTS.<br /><em>SERIOUS INTERACTIONS.</em></>} description="Thoughtful details make a digital experience feel responsive, clear and distinctly human." />
+        <Grid className="motion-lab-grid">
+          <a className="lab-experiment lab-magnetic" href="#contact" data-cursor="TRY">
+            <span>01 / MAGNETIC BUTTON</span><strong>MOVE CLOSER <ArrowUpRight size={18} /></strong>
+          </a>
+          <button type="button" className="lab-experiment lab-text-reveal" data-cursor="HOVER">
+            <span>02 / TEXT REVEAL</span><strong><i>MAKE IT<br />MEMORABLE.</i><b>MAKE IT<br />MEMORABLE.</b></strong>
+          </button>
+          <a className="lab-experiment lab-cursor-demo" href="#work" data-cursor="EXPLORE">
+            <span>03 / CUSTOM CURSOR</span><strong>FOLLOW THE DETAIL <ArrowUpRight size={18} /></strong>
+          </a>
+          <a className="lab-experiment lab-scroll-demo" href="#pricing" data-cursor="SCROLL">
+            <span>04 / SCROLL INTERACTION</span><strong>KEEP MOVING <ArrowDown size={18} /></strong>
+          </a>
+          <div className="lab-experiment lab-object-demo">
+            <span>05 / INTERACTIVE 3D</span><strong>U / DIGITAL ARTIFACT</strong>
+          </div>
+          <div className="lab-experiment lab-parallax-demo">
+            <span>06 / IMAGE MOTION</span>
+            {projects[0]?.image_url ? <img src={projects[0].image_url} alt="Portfolio image motion experiment" loading="lazy" /> : <strong>MOVE THROUGH THE IMAGE</strong>}
+          </div>
+        </Grid>
+        </Container>
+      </Section>
+
+
+      {/* =====================================================
           PRICING
       ===================================================== */}
 <section
@@ -1177,7 +1047,7 @@ export default function Home() {
 >
   <div className="uchit-section-top">
     <div>
-      <span>04 / WEBSITE SOLUTIONS</span>
+      <span>06 / WEBSITE SOLUTIONS</span>
 
       <h2>
         FIND YOUR
@@ -1296,7 +1166,7 @@ export default function Home() {
   <div className="uchit-contact-inner">
 
     <div className="uchit-contact-label">
-      05 / START A PROJECT
+      07 / START A PROJECT
     </div>
 
     <h2>
@@ -1338,7 +1208,7 @@ export default function Home() {
           <ArrowUpRight size={15} />
         </a>
 <a
-  href="https://www.instagram.com/uchit.web/"
+  href="https://www.instagram.com/uchit-web/"
   target="_blank"
   rel="noopener noreferrer"
 >
@@ -1351,7 +1221,7 @@ export default function Home() {
     </div>
 
     <div className="uchit-contact-decoration">
-      UCHIT.WEB
+      UCHIT-WEB
     </div>
 
   </div>
@@ -1363,7 +1233,7 @@ export default function Home() {
 <footer className="uchit-footer">
 
   <div>
-    <strong>UCHIT.WEB</strong>
+    <strong>UCHIT-WEB</strong>
 
     <span>
       WEBSITES THAT GROW BUSINESSES.
@@ -1378,7 +1248,7 @@ export default function Home() {
   </div>
 
       <div className="uchit-footer-right">
-    © 2026 UCHIT.WEB
+    © 2026 UCHIT-WEB
   </div>
 
 </footer>
@@ -1433,7 +1303,7 @@ export default function Home() {
                     <span className="project-image-pan-hint">MOVE OR DRAG TO EXPLORE</span>
                   </>
                 ) : (
-                  <div className="uchit-project-empty">UCHIT.WEB</div>
+                  <div className="uchit-project-empty">UCHIT-WEB</div>
                 )}
               </div>
               <div className="project-detail-content">

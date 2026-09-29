@@ -297,7 +297,7 @@ export default function AdminDashboard() {
       <header className="admin-header">
         <div>
           <div className="admin-brand">
-            UCHIT.WEB
+            UCHIT-WEB
           </div>
 
           <div className="admin-subtitle">
@@ -423,7 +423,7 @@ export default function AdminDashboard() {
                   <p
                     style={{
                       marginTop: "10px",
-                      color: "#8b5cf6",
+                      color: "#D8125B",
                       fontSize: "11px",
                     }}
                   >
