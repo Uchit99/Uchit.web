@@ -758,7 +758,7 @@ export default function Home() {
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
             >
               <span className="uchit-about-overline">A DESIGNER WHO BUILDS</span>
-              <h2>MEET<br /><em>UCHIT.</em></h2>
+              <h2><span>MEET</span><br /><em>UCHIT.</em></h2>
             </motion.div>
             <motion.div
               className="uchit-about-portrait-wrap"
