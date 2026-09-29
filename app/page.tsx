@@ -361,7 +361,7 @@ export default function Home() {
             }
           }}
         >
-          UCHIT-WEB
+          UCHIT-<span>WEB</span>
         </Link>
 
         <nav
@@ -446,7 +446,7 @@ export default function Home() {
                 }}
               >
                 <span />
-                WEB DESIGN + DEVELOPMENT
+                01 / WEB DESIGN + DEVELOPMENT
               </motion.div>
 
               <motion.h1
@@ -463,11 +463,11 @@ export default function Home() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                I BUILD
+                WEBSITES
                 <br />
-                DIGITAL
+                THAT
                 <br />
-                <em>EXPERIENCES.</em>
+                <em>GROW.</em>
               </motion.h1>
 
 
@@ -505,21 +505,21 @@ export default function Home() {
               >
 
                 <a
-                  href="#work"
-                  className="uchit-button uchit-button-light"
-                >
-                  VIEW SELECTED WORK
-                  <ArrowDown size={16} />
-                </a>
-
-                <a
                   href="https://wa.me/918882184445"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="uchit-button uchit-button-dark"
+                  className="uchit-button uchit-button-light"
                 >
                   START A PROJECT
                   <ArrowUpRight size={16} />
+                </a>
+
+                <a
+                  href="#work"
+                  className="uchit-button uchit-button-dark"
+                >
+                  VIEW MY WORK
+                  <ArrowDown size={16} />
                 </a>
 
               </motion.div>
@@ -549,6 +549,15 @@ export default function Home() {
                   MOTION
                 </span>
 
+              </div>
+
+              <div className="uchit-hero-selected-work">
+                <span>RECENTLY BUILT</span>
+                <div>
+                  {(projects.length ? projects.slice(0, 3).map((project) => project.title) : ["WEB DESIGN", "DEVELOPMENT", "MOTION"]).map((title, index) => (
+                    <span key={`${title}-${index}`}>{title}</span>
+                  ))}
+                </div>
               </div>
 
             </div>
@@ -583,6 +592,15 @@ export default function Home() {
         <a className="hero-scroll-indicator" href="#work">
           <span>SCROLL TO EXPLORE</span><ArrowDown size={14} />
         </a>
+
+        <nav className="hero-section-index" aria-label="Page sections">
+          {navItems.map((item, index) => (
+            <a key={item.id} href={`#${item.id}`} className={activeSection === item.id ? "is-active" : ""} aria-label={`Go to ${item.label}`}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <i />
+            </a>
+          ))}
+        </nav>
 
       </section>
 
