@@ -619,6 +619,7 @@ img { display: block; }
   letter-spacing: 0;
   overflow-wrap: anywhere;
 }
+.uchit-about-details { grid-template-columns: minmax(0,1fr); }
 .uchit-brand,.uchit-nav a,.uchit-header-cta,.uchit-button,
 .uchit-hero-label,.uchit-hero-services span,
 .uchit-section-top > div > span,.uchit-about-overline,

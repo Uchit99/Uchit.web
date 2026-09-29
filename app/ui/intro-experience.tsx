@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import * as THREE from "three";
 
-const INTRO_KEY = "uchit-web-intro-seen";
 const HINGE = new THREE.Vector3(0, -1.83, 0.42);
 const SCREEN_CENTER = new THREE.Vector3(0, -2.05, 2.42);
 useGLTF.preload("/models/laptop.glb");
@@ -169,18 +168,8 @@ export default function IntroExperience() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (params.has("screen") || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    let seen = false;
-    const replay = params.has("intro");
-    try {
-      seen = sessionStorage.getItem(INTRO_KEY) === "1";
-      if (!seen || replay) sessionStorage.setItem(INTRO_KEY, "1");
-    } catch {
-      // Keep the cinematic intro available when browser storage is disabled.
-    }
-    if (!seen || replay) {
-      const frame = window.requestAnimationFrame(() => setActive(true));
-      return () => window.cancelAnimationFrame(frame);
-    }
+    const frame = window.requestAnimationFrame(() => setActive(true));
+    return () => window.cancelAnimationFrame(frame);
   }, []);
 
   useEffect(() => {

@@ -808,7 +808,6 @@ export default function Home() {
               </div>
 
               <div className="uchit-about-details">
-                <div><span>BASED IN</span><strong>India</strong></div>
                 <div><span>FOCUS</span><strong>Web design · Frontend · UI / UX · Motion</strong></div>
                 <div className="uchit-about-current"><span>CURRENTLY</span><strong>Building digital experiences and growing through real-world projects.</strong></div>
               </div>
